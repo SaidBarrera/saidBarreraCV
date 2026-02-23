@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenin Said Barrera Miranda — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // ── All interactive functions must live here in <head> ──
+    // so onclick attributes can find them immediately on parse.
+
+    // Language toggle
+    function setLang(lang) {
+      document.body.className = 'lang-' + lang;
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+      });
+      document.documentElement.lang = lang;
+      localStorage.setItem('portfolio-lang', lang);
+    }
+
+    // Carousel
+    var carouselState = {};
+
+    function carouselGoTo(id, index) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var slides = el.querySelectorAll('.carousel-slide');
+      var dots   = document.querySelectorAll('#dots-' + id + ' .dot');
+      carouselState[id] = index;
+      slides.forEach(function(s, i) {
+        s.style.left = ((i - index) * 100) + '%';
+      });
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === index);
+      });
+    }
+
+    function carouselNext(id) {
+      var el = document.getElementById(id);
+      var total = el.querySelectorAll('.carousel-slide').length;
+      carouselGoTo(id, ((carouselState[id] || 0) + 1) % total);
+    }
+
+    function carouselPrev(id) {
+      var el = document.getElementById(id);
+      var total = el.querySelectorAll('.carousel-slide').length;
+      carouselGoTo(id, ((carouselState[id] || 0) - 1 + total) % total);
+    }
+  </script>
+</head>
+<body class="lang-en">
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo">LSBM<span class="cursor"></span></div>
+  <ul class="nav-links">
+    <li><a href="#about"><span data-lang="en">About</span><span data-lang="es">Sobre mí</span></a></li>
+    <li><a href="#skills"><span data-lang="en">Skills</span><span data-lang="es">Habilidades</span></a></li>
+    <li><a href="#experience"><span data-lang="en">Experience</span><span data-lang="es">Experiencia</span></a></li>
+    <li><a href="#projects"><span data-lang="en">Projects</span><span data-lang="es">Proyectos</span></a></li>
+    <li><a href="#contact"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <p class="hero-label fade-in delay-1">
+    <span data-lang="en">Semi-Senior Back-End Developer</span>
+    <span data-lang="es">Desarrollador Back-End Semi-Senior</span>
+  </p>
+
+  <h1 class="fade-in delay-2">
+    Lenin<br>
+    Said<br>
+    <span class="accent">Barrera</span><span class="dim">.</span>
+  </h1>
+
+  <p class="hero-bio fade-in delay-3">
+    <span data-lang="en">Building enterprise-grade systems with nearly five years of experience in C#, SQL Server, and Flutter. From architecture to deployment — full ownership, every time.</span>
+    <span data-lang="es">Construyendo sistemas empresariales con casi cinco años de experiencia en C#, SQL Server y Flutter. Desde la arquitectura hasta el despliegue — responsabilidad total, siempre.</span>
+  </p>
+
+  <div class="stats-bar fade-in delay-3">
+    <div class="stat">
+      <span class="stat-num">5<span style="font-size:0.5em;color:var(--muted)">yr</span></span>
+      <span class="stat-desc" data-lang="en">Experience</span>
+      <span class="stat-desc" data-lang="es">Experiencia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100<span style="font-size:0.5em;color:var(--muted)">+</span></span>
+      <span class="stat-desc" data-lang="en">Users Served</span>
+      <span class="stat-desc" data-lang="es">Usuarios Atendidos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-desc" data-lang="en">Major Systems</span>
+      <span class="stat-desc" data-lang="es">Sistemas Importantes</span>
+    </div>
+  </div>
+
+  <div class="hero-cta fade-in delay-4">
+    <a href="#projects" class="btn-primary">
+      <span data-lang="en">View Projects</span>
+      <span data-lang="es">Ver Proyectos</span>
+      →
+    </a>
+    <a href="#contact" class="btn-secondary">
+      <span data-lang="en">Get in touch</span>
+      <span data-lang="es">Contactar</span>
+    </a>
+  </div>
+
+  <div class="hero-meta fade-in delay-5">
+    <div class="meta-item">
+      <span class="meta-label"><span data-lang="en">Location</span><span data-lang="es">Ubicación</span></span>
+      <span class="meta-value">Villanueva, Honduras</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label"><span data-lang="en">Availability</span><span data-lang="es">Disponibilidad</span></span>
+      <span class="meta-value" data-lang="en">Open to opportunities</span>
+      <span class="meta-value" data-lang="es">Abierto a oportunidades</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label"><span data-lang="en">Focus</span><span data-lang="es">Enfoque</span></span>
+      <span class="meta-value">Back-End · Mobile · .NET</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">
+      <span data-lang="en">Technical Skills</span>
+      <span data-lang="es">Habilidades Técnicas</span>
+    </h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="skill-category">
+        <span data-lang="en">Languages</span>
+        <span data-lang="es">Lenguajes</span>
+      </div>
+      <div class="skill-items">
+        <span class="skill-tag">C#</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">Dart</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <div class="skill-category">
+        <span data-lang="en">Frameworks &amp; Technologies</span>
+        <span data-lang="es">Frameworks y Tecnologías</span>
+      </div>
+      <div class="skill-items">
+        <span class="skill-tag">.NET</span>
+        <span class="skill-tag">DevExpress</span>
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">WinForms</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <div class="skill-category">
+        <span data-lang="en">Databases &amp; Tools</span>
+        <span data-lang="es">Bases de Datos y Herramientas</span>
+      </div>
+      <div class="skill-items">
+        <span class="skill-tag">SQL Server</span>
+        <span class="skill-tag">Stored Procedures</span>
+        <span class="skill-tag">Visual Studio</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <div class="skill-category">
+        <span data-lang="en">Concepts &amp; Architecture</span>
+        <span data-lang="es">Conceptos y Arquitectura</span>
+      </div>
+      <div class="skill-items">
+        <span class="skill-tag" data-lang="en">System Architecture</span>
+        <span class="skill-tag" data-lang="es">Arquitectura de Sistemas</span>
+        <span class="skill-tag" data-lang="en">Backend Integration</span>
+        <span class="skill-tag" data-lang="es">Integración Backend</span>
+        <span class="skill-tag" data-lang="en">Data Modeling</span>
+        <span class="skill-tag" data-lang="es">Modelado de Datos</span>
+        <span class="skill-tag" data-lang="en">Enterprise Apps</span>
+        <span class="skill-tag" data-lang="es">Apps Empresariales</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages -->
+  <div style="margin-top:80px">
+    <div class="section-header" style="margin-bottom:32px">
+      <span class="section-num" style="opacity:0.4">—</span>
+      <h3 class="section-title" style="font-size:22px">
+        <span data-lang="en">Languages</span>
+        <span data-lang="es">Idiomas</span>
+      </h3>
+    </div>
+    <div class="languages-section">
+      <div class="lang-pill">
+        <span class="lang-flag">🇭🇳</span>
+        <div class="lang-info">
+          <strong><span data-lang="en">Spanish</span><span data-lang="es">Español</span></strong>
+          <span><span data-lang="en">Native</span><span data-lang="es">Nativo</span></span>
+        </div>
+      </div>
+      <div class="lang-pill">
+        <span class="lang-flag">🇬🇧</span>
+        <div class="lang-info">
+          <strong><span data-lang="en">English</span><span data-lang="es">Inglés</span></strong>
+          <span>C2 — <span data-lang="en">Proficient</span><span data-lang="es">Proficiente</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interests -->
+  <div style="margin-top:60px">
+    <div class="section-header" style="margin-bottom:32px">
+      <span class="section-num" style="opacity:0.4">—</span>
+      <h3 class="section-title" style="font-size:22px">
+        <span data-lang="en">Interests</span>
+        <span data-lang="es">Intereses</span>
+      </h3>
+    </div>
+    <div class="interests-row">
+      <div class="interest-chip">✏️ <span data-lang="en">Drawing</span><span data-lang="es">Dibujo</span></div>
+      <div class="interest-chip">📚 <span data-lang="en">Reading</span><span data-lang="es">Lectura</span></div>
+      <div class="interest-chip">🎵 <span data-lang="en">Music</span><span data-lang="es">Música</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">
+      <span data-lang="en">Experience</span>
+      <span data-lang="es">Experiencia</span>
+    </h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline">
+    <!-- Job 1 -->
+    <div class="timeline-item">
+      <div class="timeline-date">
+        <span data-lang="en">Feb 2021 — Present</span>
+        <span data-lang="es">Feb 2021 — Actualidad</span>
+      </div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">
+          <span data-lang="en">Semi-Senior Software Developer</span>
+          <span data-lang="es">Desarrollador de Software Semi-Senior</span>
+          <small style="font-weight:400;font-size:13px;color:var(--muted);font-family:'DM Mono',monospace;margin-left:10px">(Outsourcing)</small>
+        </div>
+        <div class="timeline-company">Aguas de San Pedro (ASP) — San Pedro Sula, Honduras</div>
+        <ul class="timeline-bullets">
+          <li data-lang="en">Design, development, and maintenance of enterprise financial, administrative, and technical systems.</li>
+          <li data-lang="es">Diseño, desarrollo y mantenimiento de sistemas empresariales financieros, administrativos y técnicos.</li>
+          <li data-lang="en">Full ownership of critical business modules, ensuring stability, performance, and scalability.</li>
+          <li data-lang="es">Responsabilidad directa sobre módulos críticos del negocio, garantizando estabilidad, rendimiento y escalabilidad.</li>
+          <li data-lang="en">Development and optimization of complex queries, stored procedures, and data models in SQL Server.</li>
+          <li data-lang="es">Desarrollo y optimización de consultas complejas, procedimientos almacenados y modelos de datos en SQL Server.</li>
+          <li data-lang="en">Lead and sole developer of an operational mobile app — architecture, backend integration, deployment, and ongoing maintenance.</li>
+          <li data-lang="es">Líder técnico y único desarrollador de una aplicación móvil operativa — arquitectura, integración backend, despliegue y mantenimiento continuo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Job 2 -->
+    <div class="timeline-item">
+      <div class="timeline-date">2018 — 2020</div>
+      <div class="timeline-line"></div>
+      <div class="timeline-content">
+        <div class="timeline-role">
+          <span data-lang="en">Independent Developer</span>
+          <span data-lang="es">Desarrollador Independiente</span>
+        </div>
+        <div class="timeline-company">SofVet — <span data-lang="en">Freelance / Early Career</span><span data-lang="es">Freelance / Inicio de Carrera</span></div>
+        <ul class="timeline-bullets">
+          <li data-lang="en">Design and development of a multi-platform veterinary management software prototype.</li>
+          <li data-lang="es">Diseño y desarrollo de un prototipo de sistema veterinario multiplataforma.</li>
+          <li data-lang="en">Definition of system architecture and unified database structure.</li>
+          <li data-lang="es">Definición de la arquitectura del sistema y estructura de base de datos unificada.</li>
+          <li data-lang="en">Full-cycle development experience from requirements to deployment.</li>
+          <li data-lang="es">Experiencia en ciclo completo de desarrollo, desde requerimientos hasta despliegue.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <div style="margin-top:80px;padding-top:60px;border-top:1px solid var(--border)">
+    <div class="section-header" style="margin-bottom:32px">
+      <span class="section-num" style="opacity:0.4">—</span>
+      <h3 class="section-title" style="font-size:22px">
+        <span data-lang="en">Education</span>
+        <span data-lang="es">Educación</span>
+      </h3>
+    </div>
+    <div class="skill-block" style="max-width:600px">
+      <div class="skill-category">
+        <span data-lang="en">Bachelor's Degree</span>
+        <span data-lang="es">Licenciatura</span>
+      </div>
+      <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px">
+        <span data-lang="en">Administrative Informatics</span>
+        <span data-lang="es">Informática Administrativa</span>
+      </p>
+      <p style="color:var(--muted);font-size:13px">
+        <span data-lang="en">National Autonomous University of Honduras (UNAH-VS)</span>
+        <span data-lang="es">Universidad Nacional Autónoma de Honduras (UNAH-VS)</span>
+        <br>San Pedro Sula, Honduras
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">
+      <span data-lang="en">Key Projects</span>
+      <span data-lang="es">Proyectos Clave</span>
+    </h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- TOM -->
+    <div class="project-card project-card--featured">
+      <div class="project-year">2024 — 2026</div>
+      <div class="project-name">
+        TOM
+        <span class="project-sub">
+          <span data-lang="en">Mobile Technical Operations System</span>
+          <span data-lang="es">Sistema de Operaciones Técnicas Móviles</span>
+        </span>
+      </div>
+      <p class="project-desc">
+        <span data-lang="en">Sole architect and developer of a Flutter mobile app supporting field technicians. Deep integration with the FAT enterprise system for real-time data sync. Features photographic capture of water meters, seals, materials, and operational records.</span>
+        <span data-lang="es">Arquitecto y único desarrollador de una app móvil en Flutter para soporte a técnicos en campo. Integración profunda con el sistema FAT para sincronización en tiempo real. Captura fotográfica de medidores, sellos, materiales y registros operativos.</span>
+      </p>
+
+      <!-- Screenshot carousel -->
+      <div class="carousel" id="carousel-tom">
+        <div class="carousel-track">
+          <div class="carousel-slide">
+            <img src="tom_1.jpeg" alt="TOM — Login screen" loading="lazy">
+            <span class="slide-label"><span data-lang="en">Login Screen</span><span data-lang="es">Pantalla de Login</span></span>
+          </div>
+          <div class="carousel-slide">
+            <img src="tom_2.jpeg" alt="TOM — Crew selection" loading="lazy">
+            <span class="slide-label"><span data-lang="en">Crew Selection</span><span data-lang="es">Selección de Cuadrilla</span></span>
+          </div>
+          <div class="carousel-slide">
+            <img src="tom_3.jpeg" alt="TOM — Work order detail" loading="lazy">
+            <span class="slide-label"><span data-lang="en">Work Order Detail</span><span data-lang="es">Detalle de Orden</span></span>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" onclick="carouselPrev('carousel-tom')" aria-label="Previous">‹</button>
+          <div class="carousel-dots" id="dots-carousel-tom">
+            <span class="dot active" onclick="carouselGoTo('carousel-tom', 0)"></span>
+            <span class="dot" onclick="carouselGoTo('carousel-tom', 1)"></span>
+            <span class="dot" onclick="carouselGoTo('carousel-tom', 2)"></span>
+          </div>
+          <button class="carousel-btn" onclick="carouselNext('carousel-tom')" aria-label="Next">›</button>
+        </div>
+      </div>
+
+      <div class="project-tags">
+        <span class="project-tag">Flutter</span>
+        <span class="project-tag">Dart</span>
+        <span class="project-tag">SQL Server</span>
+        <span class="project-tag">C#</span>
+        <span class="project-tag" data-lang="en">Real-time Sync</span>
+        <span class="project-tag" data-lang="es">Sync en Tiempo Real</span>
+      </div>
+    </div>
+
+    <!-- FAT -->
+    <div class="project-card">
+      <div class="project-year">2021 — 2024</div>
+      <div class="project-name">
+        FAT
+        <span class="project-sub">
+          <span data-lang="en">Financial, Administrative &amp; Technical System</span>
+          <span data-lang="es">Sistema Financiero, Administrativo y Técnico</span>
+        </span>
+      </div>
+      <p class="project-desc">
+        <span data-lang="en">Core contributor to a large-scale enterprise system serving multiple departments. Built work order management, payment processing, supplier management, budgeting, and accounting modules used by hundreds of users.</span>
+        <span data-lang="es">Participación clave en sistema empresarial de gran escala para múltiples departamentos. Módulos de órdenes de trabajo, pagos, proveedores, presupuestos y contabilidad utilizados por cientos de usuarios.</span>
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">C#</span>
+        <span class="project-tag">.NET</span>
+        <span class="project-tag">DevExpress</span>
+        <span class="project-tag">SQL Server</span>
+        <span class="project-tag" data-lang="en">Enterprise</span>
+        <span class="project-tag" data-lang="es">Empresarial</span>
+      </div>
+    </div>
+
+    <!-- SofVet -->
+    <div class="project-card">
+      <div class="project-year">2018 — 2020</div>
+      <div class="project-name">
+        SofVet
+        <span class="project-sub">
+          <span data-lang="en">Veterinary Software — Prototype</span>
+          <span data-lang="es">Software Veterinario — Prototipo</span>
+        </span>
+      </div>
+      <p class="project-desc">
+        <span data-lang="en">Multi-platform veterinary management system prototype. Defined system architecture, unified database structure, and gained full-cycle development experience from scratch.</span>
+        <span data-lang="es">Prototipo de sistema de gestión veterinaria multiplataforma. Arquitectura del sistema, base de datos unificada y experiencia en ciclo completo de desarrollo desde cero.</span>
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">C#</span>
+        <span class="project-tag">SQL Server</span>
+        <span class="project-tag" data-lang="en">Multi-platform</span>
+        <span class="project-tag" data-lang="es">Multiplataforma</span>
+        <span class="project-tag" data-lang="en">Architecture</span>
+        <span class="project-tag" data-lang="es">Arquitectura</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<div class="contact-wrapper">
+  <div class="contact-inner">
+    <div>
+      <p class="hero-label" style="margin-bottom:20px">
+        04 — <span data-lang="en">Contact</span><span data-lang="es">Contacto</span>
+      </p>
+      <h2 class="contact-heading">
+        <span data-lang="en">Let's build<br><em>something</em><br>great.</span>
+        <span data-lang="es">Construyamos<br><em>algo</em><br>grande.</span>
+      </h2>
+      <p class="contact-tagline">
+        <span data-lang="en">Available for new projects, collaborations, or full-time roles. Reach out and let's talk.</span>
+        <span data-lang="es">Disponible para nuevos proyectos, colaboraciones o posiciones de tiempo completo. Escríbeme.</span>
+      </p>
+    </div>
+
+    <div class="contact-links">
+      <a href="/cdn-cgi/l/email-protection#3e524d5c53070f7e59535f5752105d5153" class="contact-link">
+        <div class="contact-icon">📧</div>
+        <div class="contact-link-text">
+          <strong><span data-lang="en">Email</span><span data-lang="es">Correo</span></strong>
+          <span><span class="__cf_email__" data-cfemail="3b57485956020a7b5c565a525715585456">[email&#160;protected]</span></span>
+        </div>
+      </a>
+      <a href="tel:+50498622503" class="contact-link">
+        <div class="contact-icon">📱</div>
+        <div class="contact-link-text">
+          <strong><span data-lang="en">Phone</span><span data-lang="es">Teléfono</span></strong>
+          <span>+504 9862-2503</span>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/lsbm91" target="_blank" class="contact-link">
+        <div class="contact-icon">💼</div>
+        <div class="contact-link-text">
+          <strong>LinkedIn</strong>
+          <span>linkedin.com/in/lsbm91</span>
+        </div>
+      </a>
+      <a href="https://www.google.com/maps/place/Villanueva,+Honduras" target="_blank" class="contact-link">
+        <div class="contact-icon">📍</div>
+        <div class="contact-link-text">
+          <strong><span data-lang="en">Location</span><span data-lang="es">Ubicación</span></strong>
+          <span>Villanueva, Honduras</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>
+    Lenin Said Barrera Miranda ·
+    <span data-lang="en">Designed &amp; built with care</span>
+    <span data-lang="e
